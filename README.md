@@ -13,6 +13,8 @@ abandoned worktrees from parallel agent runs pile up unnoticed, and nobody can
 say *why* a session got expensive after the fact. None of that needs an LLM to
 diagnose — it needs a script that tells the truth. That's what's here.
 
+![Real output from all four tools](assets/screenshots/hero.png)
+
 | Skill | Answers | Try it |
 |---|---|---|
 | [`context-budget-auditor`](context-budget-auditor/) | What in this repo will blow my context budget before I even start? | `python -m scripts.audit --path .` |
