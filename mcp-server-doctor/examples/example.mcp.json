@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "echo-healthy": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["examples/echo_server.py"]
+    },
+    "search-broken": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["examples/broken_server.py"]
+    }
+  }
+}
