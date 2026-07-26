@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent eval set",
+  "type": "object",
+  "required": ["evals"],
+  "properties": {
+    "skill_name": { "type": "string" },
+    "description": { "type": "string" },
+    "evals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "input", "assertions"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "input": {
+            "type": "object",
+            "description": "Passed verbatim to the agent entrypoint. Conventionally has a 'prompt' key.",
+            "properties": { "prompt": { "type": "string" } }
+          },
+          "assertions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["kind"],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "contains", "not_contains", "equals", "regex",
+                    "tool_called", "no_tool", "tool_order", "tool_args",
+                    "max_tool_calls", "latency_under_ms", "no_error", "llm_judge"
+                  ]
+                },
+                "name": { "type": "string" },
+                "value": {},
+                "path": { "type": "string" },
+                "ignore_case": { "type": "boolean" },
+                "tool": { "type": "string" },
+                "args": { "type": "object" },
+                "criteria": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

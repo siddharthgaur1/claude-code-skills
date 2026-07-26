@@ -1,0 +1,38 @@
+{
+  "skill_name": "agent-eval-harness",
+  "description": "Example eval set for the reference echo_agent.",
+  "evals": [
+    {
+      "id": "capital-france",
+      "name": "answers a factual question and cites a source page",
+      "input": { "prompt": "What is the capital of France?" },
+      "assertions": [
+        { "name": "mentions Paris", "kind": "contains", "value": "Paris" },
+        { "name": "searched the web", "kind": "tool_called", "value": "search_web" },
+        { "name": "read a page before answering", "kind": "tool_order",
+          "value": ["search_web", "read_page"] },
+        { "name": "did not error", "kind": "no_error" }
+      ]
+    },
+    {
+      "id": "arithmetic-no-tools",
+      "name": "does simple math without calling tools",
+      "input": { "prompt": "What is 2 + 2?" },
+      "assertions": [
+        { "name": "answer is 4", "kind": "equals", "path": "output", "value": "4" },
+        { "name": "avoided web search", "kind": "no_tool", "value": "search_web" },
+        { "name": "at most 0 tool calls", "kind": "max_tool_calls", "value": 0 }
+      ]
+    },
+    {
+      "id": "search-args",
+      "name": "passes the user query into the search tool",
+      "input": { "prompt": "Who wrote Hamlet?" },
+      "assertions": [
+        { "name": "search args include the prompt", "kind": "tool_args",
+          "tool": "search_web", "args": { "q": "Who wrote Hamlet?" } },
+        { "name": "responds quickly", "kind": "latency_under_ms", "value": 2000 }
+      ]
+    }
+  ]
+}
