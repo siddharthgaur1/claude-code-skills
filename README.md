@@ -37,6 +37,29 @@ transcript lines with missing usage data instead of silently zero-filling
 them. Get this wrong and the tool is worse than no tool — it's the same
 fabricated-confidence problem these skills exist to catch elsewhere.
 
+## Architecture
+
+Five independent, dependency-free scripts sharing one discipline (see below)
+and nothing else — no shared library, no common CLI framework. Each is
+`scripts/<name>.py`, standalone `argparse`-based, importable and runnable
+without the others. That's deliberate: a Claude Code skill is copied whole
+into `~/.claude/skills/`, so cross-skill imports would break the
+copy-one-folder install model.
+
+## Results
+
+Each skill's own README shows real sample output against this repo itself
+(e.g. `context-budget-auditor` run against `claude-code-skills/`). There's no
+aggregate "accuracy" metric across five different tools — see each skill's
+README for its own measured output.
+
+## Limitations
+
+Standalone CLI mode is exercised in this repo's own dogfooding; the
+Claude-Code-skill invocation path (drop into `~/.claude/skills/`, ask in
+plain English) isn't covered by an automated test — it depends on Claude
+Code's own skill-loading behavior, which this repo doesn't control or mock.
+
 ## Install
 
 Each skill is self-contained — copy the folder you want into your Claude Code
